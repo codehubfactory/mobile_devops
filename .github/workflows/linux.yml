@@ -1,0 +1,36 @@
+name: Flutter Linux
+
+on:
+  push:
+    branches: [ linux ]
+  pull_request:
+    branches: [ linux ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '2.x'
+        
+    - name: Get dependencies
+      run: flutter pub get
+
+    - name: Run tests
+      run: flutter test
+
+    - name: Build Linux application
+      run: flutter build linux
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: release-linux
+        path: build/linux/release/bundle/
