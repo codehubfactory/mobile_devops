@@ -2,7 +2,7 @@ name: Flutter Linux
 
 on:
   push:
-    branches: [ linux ]
+    branches: [ master ]
   pull_request:
     branches: [ linux ]
 
